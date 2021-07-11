@@ -8,26 +8,26 @@ class AddNodeDialog(wx.Dialog):
 
     def __init__(self):
 
-		wx.Dialog.__init__(self, None, title="Specify node name", size=(290, 40))
+        wx.Dialog.__init__(self, None, title="Specify node name", size=(290, 40))
 
-		self.txt = wx.TextCtrl(self)
-		btn = wx.Button(self, id=wx.ID_OK, label="Add node")
+        self.txt = wx.TextCtrl(self)
+        btn = wx.Button(self, id=wx.ID_OK, label="Add node")
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		sizer.Add(self.txt, 4, wx.LEFT | wx.EXPAND, 0)
-		sizer.Add(btn, 2, wx.RIGHT | wx.EXPAND, 0)
-		self.SetSizer(sizer)
+        sizer = wx.BoxSizer(wx.HORIZONTAL)
+        sizer.Add(self.txt, 4, wx.LEFT | wx.EXPAND, 0)
+        sizer.Add(btn, 2, wx.RIGHT | wx.EXPAND, 0)
+        self.SetSizer(sizer)
 
 class AboutDialog():
 
-	description = """PyRegedit is GUI tool which allows users to manipulate with Windows Registry hives.
-	This program should be open-source replacement for Windows Regedit32.
+    description = """PyRegedit is GUI tool which allows users to manipulate with Windows Registry hives.
+    This program should be open-source replacement for Windows Regedit32.
 
-	!!! Always carefully make backup before you change in production hive !!!
-	"""
+    !!! Always carefully make backup before you change in production hive !!!
+    """
 
-	license = """
-	PyRegedit opensource alternative for Windows Regedit
+    license = """
+    PyRegedit opensource alternative for Windows Regedit
     Copyright (C) 2014 Martin Klíma
 
     This program is free software: you can redistribute it and/or modify
@@ -45,18 +45,18 @@ class AboutDialog():
 
     """
 
-	
+    
 
-	def __init__(self):
-				
-		info = wx.AboutDialogInfo()
+    def __init__(self):
+                
+        info = wx.AboutDialogInfo()
 
-		info.SetIcon(wx.Icon(os.path.abspath('registry-icon.png'), wx.BITMAP_TYPE_PNG))
-		info.SetName('PyRegedit')
-		info.SetLicence(self.license)
-		info.SetDescription(self.description)
-		info.SetVersion('0.1Beta')
-		info.SetCopyright('(C) 2014 Pooky')
-		info.SetWebSite('https://github.com/Pooky/PyRegedit')
+        info.SetIcon(wx.Icon(os.path.abspath('registry-icon.png'), wx.BITMAP_TYPE_PNG))
+        info.SetName('PyRegedit')
+        info.SetLicence(self.license)
+        info.SetDescription(self.description)
+        info.SetVersion('0.1Beta')
+        info.SetCopyright('(C) 2014 Pooky')
+        info.SetWebSite('https://github.com/Pooky/PyRegedit')
 
-		wx.AboutBox(info)
+        wx.AboutBox(info)

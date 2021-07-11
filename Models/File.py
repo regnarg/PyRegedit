@@ -26,7 +26,7 @@ class File:
 		try:
 			string = f.read(4)
 			# first 4 bytes have to be "regf"
-			if(string == "regf"):
+			if(string == b"regf"):
 				return True
 			else:
 				return False

@@ -174,14 +174,14 @@ class Controller:
 		
 		self.dirname = ""
 			
-		dlg = wx.FileDialog(self.frame, "Choose a hive", self.dirname, "", "*", wx.OPEN)
+		dlg = wx.FileDialog(self.frame, "Choose a hive", self.dirname, "", "*", wx.FD_OPEN)
 		
 		if dlg.ShowModal() == wx.ID_OK:
 			
 			self.filename = dlg.GetFilename()
 			self.dirname = dlg.GetDirectory()
 			self.full_path = os.path.join(self.dirname, self.filename)
-			print self.full_path # test
+			print(self.full_path) # test
 			self.openHive(self.full_path)
 			self.reloadTreeView()
 
@@ -210,7 +210,7 @@ class Controller:
 		fullRegistryPath = os.path.join(path, "System32/config")
 		
 		if(not os.path.isdir(fullRegistryPath)):
-			print "not directory" + fullRegistryPath
+			print("not directory" + fullRegistryPath)
 			self.sf.textStatus.SetLabel("Not valid directory")
 			return False
 		
@@ -225,13 +225,13 @@ class Controller:
 		}
 		i = 0
 		# Prolezeme složku a najdeme hive files
-		for key, value in files.iteritems():
+		for key, value in files.items():
 			
 			found = False
-			print fullRegistryPath + "/" + key
+			print(fullRegistryPath + "/" + key)
 			
 			if os.path.isfile(fullRegistryPath + "/" + key):
-				print "Nalezen klic " + value
+				print("Nalezen klic " + value)
 				found = True
 			
 			
@@ -243,7 +243,7 @@ class Controller:
 			self.sf.lc.SetStringItem(index, 1,  value)
 			i = i + 1
 			
-		print "done"
+		print("done")
 		
 
 
@@ -262,12 +262,12 @@ class Controller:
 	'''
 	def menuAddKey(self, event):
 
-		print "add key"
+		print("add key")
 		if self.editing == True: 
 			return False # existuje už dialog?
 					
 		item = self.treeView.GetSelection()
-		keyId = self.treeView.GetItemData(item).GetData()[0]
+		keyId = self.treeView.GetItemData(item)[0]
 		if not keyId:
 			keyId = self.hivex.getRoot()
 
@@ -343,11 +343,11 @@ class Controller:
 			
 			new_node = dlg.txt.GetValue()
 			item = self.treeView.GetSelection()
-			keyId = self.treeView.GetItemData(item).GetData()[0]
+			keyId = self.treeView.GetItemData(item)[0]
 			newId =  self.hivex.addChild(keyId, new_node)
 
-			self.treeView.SetItemData(item, wx.TreeItemData([keyId, True]))  # update expand
-			self.treeView.AppendItem(item, new_node, data=wx.TreeItemData([newId, False])) 
+			self.treeView.SetItemData(item, [keyId, True])  # update expand
+			self.treeView.AppendItem(item, new_node, data=[newId, False]) 
 
 			self.setStatusBarText("Node was added")
 			self.isSaved(False)
@@ -361,7 +361,7 @@ class Controller:
 		if dlg.ShowModal() == wx.ID_YES:
 
 			item = self.treeView.GetSelection()
-			keyId = self.treeView.GetItemData(item).GetData()[0]
+			keyId = self.treeView.GetItemData(item)[0]
 
 			self.hivex.removeChild(keyId)
 			self.treeView.Delete(item)
@@ -385,12 +385,12 @@ class Controller:
 	def reloadTreeView(self):
 
 		self.treeView.DeleteAllItems()
-		root = self.treeView.AddRoot("My Computer", data=wx.TreeItemData([0, True]))
+		root = self.treeView.AddRoot("My Computer", data=[0, True])
 
 		if(self.hivex != None):
 			# Top levels keys
 			for key in self.hivex.getRootKeys():
-				temp = self.treeView.AppendItem(root, key[0], data=wx.TreeItemData([key[2], False]))
+				temp = self.treeView.AppendItem(root, key[0], data=[key[2], False])
 				if(key[1] == True):
 					self.treeView.SetItemHasChildren(temp)		
 		
@@ -401,7 +401,7 @@ class Controller:
 		if not item.IsOk():
 			item = self.treeView.GetSelection()
 		
-		itemData = self.treeView.GetItemData(item).GetData()
+		itemData = self.treeView.GetItemData(item)
 
 		keyId = itemData[0]
 		expand = itemData[1]
@@ -412,12 +412,12 @@ class Controller:
 		if(expand == False):
 			# Top levels keys
 			for key in self.hivex.getKeyChildren(keyId):
-				temp = self.treeView.AppendItem(item, key[0], data=wx.TreeItemData([key[2], False]))
+				temp = self.treeView.AppendItem(item, key[0], data=[key[2], False])
 				if(key[1] == True):
 					self.treeView.SetItemHasChildren(temp)
 
 			# Expand -> TRUE
-			self.treeView.SetItemData(item, wx.TreeItemData([keyId, True])) 
+			self.treeView.SetItemData(item, [keyId, True]) 
 			
 	
 		
@@ -432,7 +432,8 @@ class Controller:
 		#if not item.IsOk():
 		item = self.treeView.GetSelection()
 		
-		keyId = self.treeView.GetItemData(item).GetData()[0]
+		print(repr(self.treeView.GetItemData(item)))
+		keyId = self.treeView.GetItemData(item)[0]
 		
 		if self.hivex:
 		

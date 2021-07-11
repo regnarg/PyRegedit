@@ -5,7 +5,7 @@ import hivex
 import hashlib
 import binascii
 import struct
-from Type import Type
+from .Type import Type
 
 '''
 	Třída pro komunikaci s knihovnou hivex
@@ -97,7 +97,7 @@ class HivexManager:
 			valObject = { "key": keyName, "t": int(valType), "value": value2 }
 			new_values.append(valObject)
 
-		print node, new_values
+		print(node, new_values)
 		self.h.node_set_values(node, new_values)
 	
 	def saveChanges(self, path):
@@ -168,9 +168,9 @@ class HivexManager:
 		elif val_type == Type.BINARY:
 			result = self.h.value_value(val)[1] # Result is in hexadecimal
 			if not edit:
-				result = '0x' + ''.join(['%x' % ord(x) for x in result]) # překodování
+				result = '0x' + ''.join(['%x' % x for x in result]) # překodování
 			else:
-				result = ''.join(['%x' % ord(x) for x in result]) # překodování
+				result = ''.join(['%x' % x for x in result]) # překodování
 		else:
 			#print typ.getStringType(val_type)
 			result = self.h.value_value(val)[1]

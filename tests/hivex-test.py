@@ -86,12 +86,12 @@ for value in h.node_values(key):
 		value2 = h.value_value(val)[1] # Result is in hexadecimal
 		value2 = ''.join(['%x' % ord(x) for x in value2])
 	else:
-		print typ.getStringType(valType)
+		print(typ.getStringType(valType))
 		value2 = h.value_value(val)[1]
 		value2 = value2.decode('utf-16le').encode('utf-8')
 
 
-	print "\t %s --> %s" % (keyName, value2)
+	print("\t %s --> %s" % (keyName, value2))
 
 '''
 h.node_add_child (root, "D")
